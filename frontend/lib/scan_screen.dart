@@ -35,6 +35,11 @@ class UrlInputPanel extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         ElevatedButton(onPressed: onPlay, child: const Text('Play Video')),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Cancel'),
+        ),
       ],
     );
   }
@@ -123,33 +128,105 @@ class InfoPanel extends StatelessWidget {
 }
 
 class _ScanParkingPageState extends State<ScanParkingPage> {
-  final urlController = TextEditingController();
-  late Player _player;
-  String? _currentUrl;
+  final urlControllerIn = TextEditingController();
+  final urlControllerOut = TextEditingController();
+  late Player _playerIn;
+  late Player _playerOut;
+  String? _currentUrlIn;
+  String? _currentUrlOut;
   String testinfo = '123';
+  bool showUrlInput = false;
 
   @override
   void initState() {
     super.initState();
     DartVLC.initialize();
-    _player = Player(id: 0);
+    _playerIn = Player(id: 1);
+    _playerOut = Player(id: 2);
   }
 
   @override
   void dispose() {
-    _player.dispose();
-    urlController.dispose();
+    _playerIn.dispose();
+    _playerOut.dispose();
+    urlControllerIn.dispose();
     super.dispose();
   }
 
-  void _playVideo() {
-    final url = urlController.text;
+  void _playVideoIn() {
+    final url = urlControllerIn.text;
     if (url.isEmpty) return;
 
     setState(() {
-      _currentUrl = url;
-      _player.open(Media.network(url), autoStart: true);
+      _currentUrlIn = url;
+      showUrlInput = false;
+      _playerIn.open(Media.network(url), autoStart: true);
     });
+  }
+
+  void _playVideoOut() {
+    final url = urlControllerOut.text;
+    if (url.isEmpty) return;
+
+    setState(() {
+      _currentUrlOut = url;
+      showUrlInput = false;
+      _playerOut.open(Media.network(url), autoStart: true);
+    });
+  }
+
+  void _onVideoPanelTap() {
+    setState(() {
+      showUrlInput = true;
+    });
+  }
+
+  void _showInputStreamDialogIn() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Enter RTSP Url'),
+        content: SizedBox(
+          width: 400,
+          height: 150,
+          child: UrlInputPanel(
+            urlController: urlControllerIn,
+            onPlay: _playVideoIn,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showInputStreamDialogOut() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Enter RTSP Url'),
+        content: SizedBox(
+          width: 400,
+          height: 150,
+          child: UrlInputPanel(
+            urlController: urlControllerOut,
+            onPlay: _playVideoOut,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildVideoPanelIn() {
+    return GestureDetector(
+      onTap: _showInputStreamDialogIn,
+      child: VideoPanel(player: _playerIn, hasUrl: _currentUrlIn != null),
+    );
+  }
+
+  Widget buildVideoPanelOut() {
+    return GestureDetector(
+      onTap: _showInputStreamDialogOut,
+      child: VideoPanel(player: _playerOut, hasUrl: _currentUrlOut != null),
+    );
   }
 
   @override
@@ -179,10 +256,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: VideoPanel(
-                        player: _player,
-                        hasUrl: _currentUrl != null,
-                      ),
+                      child: buildVideoPanelIn(),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -191,7 +265,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: ImagePanel(imagePath: 'images/a.png'),
+                      child: ImagePanel(imagePath: 'images/input/input.png'),
                     ),
                   ),
                   Expanded(
@@ -207,7 +281,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                           ),
                         ),
                         Text(
-                          "Mã Thẻ: $testinfo",
+                          "Biển số xe: $testinfo",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -246,10 +320,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: VideoPanel(
-                        player: _player,
-                        hasUrl: _currentUrl != null,
-                      ),
+                      child: buildVideoPanelOut(),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -257,7 +328,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: ImagePanel(imagePath: 'images/a.png'),
+                      child: ImagePanel(imagePath: 'images/output/output.png'),
                     ),
                   ),
                   Expanded(
