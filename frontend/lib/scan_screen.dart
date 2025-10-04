@@ -163,6 +163,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
             Expanded(
               // thẻ vào
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     'Camera Vào',
@@ -170,6 +171,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   ),
                   SizedBox(height: 8),
                   Expanded(
+                    flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: VideoPanel(
@@ -181,22 +183,21 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   SizedBox(height: 8),
                   // Image capture of license plate
                   Expanded(
+                    flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: ImagePanel(imagePath: 'images/a.png'),
                     ),
                   ),
                   Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: InfoPanel(
-                        title: 'Thông tin xe',
-                        children: [
-                          Text("Mã thẻ: $testinfo"),
-                          Text("Mã Thẻ: $testinfo"),
-                          Text('Giá tiền: $testinfo'),
-                        ],
-                      ),
+                    flex: 1,
+                    child: InfoPanel(
+                      title: 'Thông tin xe',
+                      children: [
+                        Text("Mã thẻ: $testinfo"),
+                        Text("Mã Thẻ: $testinfo"),
+                        Text('Giá tiền: $testinfo'),
+                      ],
                     ),
                   ),
                 ],
@@ -206,6 +207,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
             // Cột phải
             Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
                     'Camera Ra',
@@ -213,6 +215,7 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   ),
                   SizedBox(height: 8),
                   Expanded(
+                    flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: VideoPanel(
@@ -223,20 +226,18 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   ),
                   SizedBox(height: 8),
                   Expanded(
+                    flex: 1,
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: ImagePanel(imagePath: 'images/a.png'),
                     ),
                   ),
                   Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: InfoPanel(
-                        title: 'Lịch sử giao dịch',
-                        children: [
-                          Text("xe N biển số 999 đã thanh toán 50000 đồng"),
-                        ],
-                      ),
+                    child: InfoPanel(
+                      title: 'Lịch sử giao dịch',
+                      children: [
+                        Text("xe N biển số 999 đã thanh toán 50000 đồng"),
+                      ],
                     ),
                   ),
                 ],
