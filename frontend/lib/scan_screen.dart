@@ -165,9 +165,14 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Camera Vào',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Center(
+                    child: Text(
+                      'Camera Vào',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 8),
                   Expanded(
@@ -194,9 +199,27 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     child: InfoPanel(
                       title: 'Thông tin xe',
                       children: [
-                        Text("Mã thẻ: $testinfo"),
-                        Text("Mã Thẻ: $testinfo"),
-                        Text('Giá tiền: $testinfo'),
+                        Text(
+                          "Mã thẻ: $testinfo",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Mã Thẻ: $testinfo",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Giá tiền: $testinfo',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -209,9 +232,14 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Camera Ra',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Center(
+                    child: Text(
+                      'Camera Ra',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 8),
                   Expanded(
@@ -236,7 +264,13 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                     child: InfoPanel(
                       title: 'Lịch sử giao dịch',
                       children: [
-                        Text("xe N biển số 999 đã thanh toán 50000 đồng"),
+                        Text(
+                          "xe N biển số 999 đã thanh toán 50000 đồng",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
