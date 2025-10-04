@@ -87,10 +87,46 @@ void pickImage() async {
   }
 }
 
+class InfoPanel extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
+
+  const InfoPanel({required this.title, required this.children, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.blueGrey, width: 2),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(2, 2)),
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          ...children,
+        ],
+      ),
+    );
+  }
+}
+
 class _ScanParkingPageState extends State<ScanParkingPage> {
   final urlController = TextEditingController();
   late Player _player;
   String? _currentUrl;
+  String testinfo = '123';
 
   @override
   void initState() {
@@ -134,20 +170,39 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   ),
                   SizedBox(height: 8),
                   Expanded(
-                    child: VideoPanel(
-                      player: _player,
-                      hasUrl: _currentUrl != null,
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: VideoPanel(
+                        player: _player,
+                        hasUrl: _currentUrl != null,
+                      ),
                     ),
                   ),
                   SizedBox(height: 8),
                   // Image capture of license plate
                   Expanded(
-                    child: ImagePanel(imagePath: 'frontend/images/a.png')
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: ImagePanel(imagePath: 'images/a.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: InfoPanel(
+                        title: 'Thông tin xe',
+                        children: [
+                          Text("Mã thẻ: $testinfo"),
+                          Text("Mã Thẻ: $testinfo"),
+                          Text('Giá tiền: $testinfo'),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 12),
+            SizedBox(width: 6),
             // Cột phải
             Expanded(
               child: Column(
@@ -158,9 +213,30 @@ class _ScanParkingPageState extends State<ScanParkingPage> {
                   ),
                   SizedBox(height: 8),
                   Expanded(
-                    child: VideoPanel(
-                      player: _player,
-                      hasUrl: _currentUrl != null,
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: VideoPanel(
+                        player: _player,
+                        hasUrl: _currentUrl != null,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: ImagePanel(imagePath: 'images/a.png'),
+                    ),
+                  ),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: InfoPanel(
+                        title: 'Lịch sử giao dịch',
+                        children: [
+                          Text("xe N biển số 999 đã thanh toán 50000 đồng"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
